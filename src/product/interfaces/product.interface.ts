@@ -1,9 +1,11 @@
 export interface Product {
-  id: bigint,
-  serial: string;
-  name: string;
-  stock: number;
-  price: number;
-  description: string;
-  image: string;
+  id: Number,
+  serial: String;
+  name: String;
+  stock: Number;
+  price: Number;
+  description: String;
+  image: String;
+  updatedAt: Date;
+  createdAt: Date;
 }

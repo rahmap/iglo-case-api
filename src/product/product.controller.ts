@@ -8,35 +8,37 @@ export class ProductController {
     constructor(private productService: ProductService) {}
 
     @Get('/')
-    index(@Res() response: any): Object {
+    async index(@Res() response: any, @Param() param: object) {
         try {
+            const products = await this.productService.findAll(param);
             return response.status(200).json({
                 status: true,
                 message: 'Get All Products Successfully',
-                data: this.productService.findAll()
+                data: products
             })
         } catch (error){
             return response.status(500).json({
                 status: false,
                 message: 'Unable to Get All Products',
-                data: error
+                data: error.message
             });
         }
     }
 
     @Post('create')
-    create(@Res() response: any, @Body() body: CreateProductDto): Object {
+    async create(@Res() response: any, @Body() body: CreateProductDto) {
         try {
+            const product = await this.productService.create(body);
             return response.status(200).json({
                 status: true,
                 message: 'Create Product Successfully',
-                data: body
+                data: product
             })
         } catch (error){
             return response.status(500).json({
                 status: false,
                 message: 'Unable to Create Product',
-                data: error
+                data: error.message
             });
         }
     }
